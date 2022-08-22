@@ -64,28 +64,30 @@ mod tests {
     fn it_adds() {
         let frac = Equation::from_str("1/2 + 1/2").unwrap().solve().to_string();
         let mix = Equation::from_str("1_1/2 + 1/2").unwrap().solve().to_string();
-        let neg_mix = Equation::from_str("1_1/2 + -1/2").unwrap().solve().to_string();
+        let neg_mix = Equation::from_str("-1_1/2 + 2").unwrap().solve().to_string();
         let neg_denom = Equation::from_str("1/2 + 1/-2").unwrap().solve().to_string();
         let zero_num = Equation::from_str("1/2 + 0/2").unwrap().solve().to_string();
         assert_eq!(frac, "1");
         assert_eq!(mix, "2");
-        assert_eq!(neg_mix, "1");
+        assert_eq!(neg_mix, "1/2");
         assert_eq!(neg_denom, "0");
         assert_eq!(zero_num, "1/2");
     }
 
     #[test]
-    fn it_suptracts() {
+    fn it_subtracts() {
         let frac = Equation::from_str("1/2 - 1/2").unwrap().solve().to_string();
         let mix = Equation::from_str("1_1/2 - 1/2").unwrap().solve().to_string();
         let neg_mix = Equation::from_str("1_1/2 - -1/2").unwrap().solve().to_string();
         let neg_denom = Equation::from_str("1/2 - 1/-2").unwrap().solve().to_string();
         let zero_num = Equation::from_str("1/2 - 0/2").unwrap().solve().to_string();
+        let small_minus_big = Equation::from_str("1/2 - 2").unwrap().solve().to_string();
         assert_eq!(frac, "0");
         assert_eq!(mix, "1");
         assert_eq!(neg_mix, "2");
         assert_eq!(neg_denom, "1");
         assert_eq!(zero_num, "1/2");
+        assert_eq!(small_minus_big, "-1_1/2");
     }
 
      #[test]

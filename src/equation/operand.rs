@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use super::errors::ParseError;
 
+#[derive(Debug)]
 pub enum Operand {
     Add, 
     Sub,

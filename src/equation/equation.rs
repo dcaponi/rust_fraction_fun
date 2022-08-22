@@ -4,6 +4,7 @@ use crate::Arg;
 
 use super::{operand::Operand, errors::ParseError};
 
+#[derive(Debug)]
 pub struct Equation {
     args: Vec<Arg>,
     op: Operand,
@@ -17,20 +18,15 @@ impl Default for Equation {
 
 impl Equation {
     pub fn solve(self) -> Arg {
-        let args: Vec<Arg> = self.args.iter().map(|arg| arg.mixed_to_improp()).collect();
-
-        let mut out = match self.op {
+        let args: Vec<Arg> = self.args.iter().map(|arg|arg.mixed_to_improp()).collect();
+         match self.op {
             Operand::Add => Arg{ who: 0, num: args[0].num * args[1].den + args[1].num * args[0].den, den: args[0].den * args[1].den },
             Operand::Sub => Arg{ who: 0, num: args[0].num * args[1].den - args[1].num * args[0].den, den: args[0].den * args[1].den },
             Operand::Mul => Arg{ who: 0, num: args[0].num * args[1].num, den: args[0].den * args[1].den },
             Operand::Div => Arg{ who: 0, num: args[0].num * args[1].den, den: args[0].den * args[1].num },
-        }.reduce();
-
-        if out.den < 0 {
-            out.den = out.den.abs();
-            out.num = out.num * -1;
         }
-        out.improp_to_mixed()
+        .reduce()
+        .improp_to_mixed()
     }
 }
 
